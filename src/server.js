@@ -1,6 +1,8 @@
 import express from 'express';
 import  prisma  from './db.js';
 import { getUsers } from './routes/users.js';
+import { getBooks } from './routes/books.js';
+import { getAuthors } from './routes/authors.js';
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +17,12 @@ app.get('/', (req, res) => {
 
 // Users routes
 app.get('/users', getUsers);
+
+// Books routes
+app.get('/books', getBooks);
+
+// Authors routes
+app.get('/authors', getAuthors);
 
 // Start server
 app.listen(PORT, () => {
