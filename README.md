@@ -1,3 +1,3 @@
 # Bookstore API
 
-## Reflection work on 23/9 => I confirmed the project requirements and decided to go with a NodeJS + Express + Prisma + Neon stack mostly for familiarity. As I was refreshing myself in the Prisma docs I realized that Prisma now offers a next-gen severless Postgres database. So I decided to change course and try that out. I will go back to Neon if needed but it seems like it'll be really easy to spin up.      
+    
