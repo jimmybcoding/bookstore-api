@@ -1,0 +1,7 @@
+# Reflection
+
+## 23/9/25 Work 
+I confirmed the project requirements and decided to go with a NodeJS + Express + Prisma + Neon stack mostly for familiarity. As I was refreshing myself in the Prisma docs I realized that Prisma now offers a next-gen serverless Postgres database. So I decided to change course and try that out. I will go back to Neon if needed but it seems like it'll be really easy to spin up.
+
+## 24/9/25 Work
+I ran into my first challenges while trying to seed my Prisma postgres db. Just some trial and error with relationships. In my seed file I was trying to create books that already existed instead of using connect and I was accessing author before it was initialized, minor errors like that. I got the db seeded and then defined get routes for my 3 db tables and confirmed they were working in the browser. The JSON in the browser was kind of messy with nesting that isn't even really necessary, I'll might clean that up in my next session. I also avoided the challenge of intense frustration with forgetting to restart the server by installing nodemon.
