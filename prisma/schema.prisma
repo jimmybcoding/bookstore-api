@@ -26,9 +26,10 @@ model Book {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  author   String
   published DateTime  
   isbn  String  @unique
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  Int
   users User[] 
 }
 

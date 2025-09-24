@@ -1,33 +1,50 @@
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('../generated/prisma')
 const prisma = new PrismaClient()
 
 async function main() {
-  const harryPotterOne = await prisma.book.upsert({
-    where: { isbn: '' },
+    const jkRowling = await prisma.author.upsert({
+    where: { name: 'J.K. Rowling' },
     update: {},
     create: {
-      title: '',
-      author: '',
-      isbn: '',
-      published: new Date(''),
+      name: 'J.K. Rowling',
+      bio: 'A British author, best known for the Harry Potter series.',
+    }
+  })
+
+    const harryPotterOne = await prisma.book.upsert({
+    where: { isbn: '9781338878929' },
+    update: {},
+    create: {
+      title: 'Harry Potter and the Sorcerer\'s Stone',
+      author: { connect: { id: jkRowling.id } },
+      isbn: '9781338878929',
+      published: new Date('1998-09-01'),
     },
   })
 
-  const jkRowling = await prisma.author.upsert({
-    where: { name: ''},
+    const harryPotterTwo = await prisma.book.upsert({
+    where: { isbn: '9781338878936' },
     update: {},
     create: {
-      name: '',
-      bio: '',
+      title: 'Harry Potter and the Chamber of Secrets',
+      author: { connect: { id: jkRowling.id } },
+      isbn: '9781338878936',
+      published: new Date('2023-05-02'),
     },
   })
 
   const jimmy = await prisma.user.upsert({
-    where: { email: '' },
+    where: { email: 'jimmy@gmail.com' },
     update: {},
     create: {
-        email: '',
-        name: '',
+        email: 'jimmy@gmail.com',
+        name: 'James B',
+        books: {
+            connect: [
+                {isbn: '9781338878929'}, 
+                {isbn: '9781338878936'}
+            ]
+        }
     }
   })
   console.log({ harryPotterOne, jkRowling, jimmy })
