@@ -1,6 +1,5 @@
 import express from 'express';
-import  prisma  from './db.js';
-import { getUsers } from './routes/users.js';
+import { getUsers, createUser, updateUser, deleteUser } from './routes/users.js';
 import { getBooks } from './routes/books.js';
 import { getAuthors, createAuthor, updateAuthor, deleteAuthor } from './routes/authors.js';
 
@@ -17,6 +16,9 @@ app.get('/', (req, res) => {
 
 // Users routes
 app.get('/users', getUsers);
+app.post('/users', createUser);
+app.put('/users/:id', updateUser);
+app.delete('/users/:id', deleteUser);
 
 // Books routes
 app.get('/books', getBooks);
