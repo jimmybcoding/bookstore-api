@@ -1,0 +1,24 @@
+### Get all authors
+GET http://localhost:3000/authors
+Accept: application/json
+
+### Create author
+POST http://localhost:3000/authors
+Content-Type: application/json
+
+{
+  "name": "Frank Herbert",
+  "bio": "Author of Dune, maker of The Maker, Shai Hulud."
+}
+
+### Update existing author (replace id with real)
+PUT http://localhost:3000/authors/2
+Content-Type: application/json
+
+{
+  "name": "Frank Herbert",
+  "bio": "The spice must flow."
+}
+
+### Delete author (replace id with a real)
+DELETE http://localhost:3000/authors/2
