@@ -56,4 +56,62 @@ export async function deleteUser(req, res) {
         console.error(error);
         res.status(500).json({ error: 'Server error, failed to delete user' });
     };
-};                 
+};
+
+// User buys a book
+export async function addBookToUser(req, res) {
+    try {
+        const { userId, bookId } = req.body;
+        if (!userId || !bookId) return res.status(400).json({ error: 'userId and bookId are required'});
+
+        const userExists = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+        if (!userExists) return res.status(404).json({ error: 'User not found, confirm Id is correct and try again' });
+
+        const bookExists = await prisma.book.findUnique({
+            where: { id: bookId }
+        });
+        if (!bookExists) return res.status(404).json({ error: 'Book not found, confirm Id is correct and try again' });
+
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: { books: { connect: { id: bookId } } },
+            include: { books: true }
+        });
+
+        res.status(201).json(updatedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error, failed to add book to user' });
+    };
+};
+
+// User returns a book
+export async function removeBookFromUser(req, res) {
+    try {
+        const { userId, bookId } = req.params;
+        if (!userId || !bookId) return res.status(400).json({ error: 'userId and bookId are required'});
+
+        const userExists = await prisma.user.findUnique({
+            where: { id: parseInt(userId) }
+        });
+        if (!userExists) return res.status(404).json({ error: 'User not found, confirm Id is correct and try again' }); 
+
+        const bookExists = await prisma.book.findUnique({
+            where: { id: parseInt(bookId) }
+        });
+        if (!bookExists) return res.status(404).json({ error: 'Book not found, confirm Id is correct and try again' });
+
+        const updatedUser = await prisma.user.update({
+            where: { id: parseInt(userId) },
+            data: { books: { disconnect: { id: parseInt(bookId) } } },
+            include: { books: true }
+        });
+
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error, failed to remove book from user' });
+    };
+};   

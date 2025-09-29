@@ -1,6 +1,6 @@
 import express from 'express';
-import { getUsers, createUser, updateUser, deleteUser } from './routes/users.js';
-import { getBooks } from './routes/books.js';
+import { getUsers, createUser, updateUser, deleteUser, addBookToUser, removeBookFromUser } from './routes/users.js';
+import { getBooks, createBook, updateBook, deleteBook } from './routes/books.js';
 import { getAuthors, createAuthor, updateAuthor, deleteAuthor } from './routes/authors.js';
 
 const app = express();
@@ -19,9 +19,14 @@ app.get('/users', getUsers);
 app.post('/users', createUser);
 app.put('/users/:id', updateUser);
 app.delete('/users/:id', deleteUser);
+app.post('/users/books', addBookToUser);
+app.delete('/users/:userId/books/:bookId', removeBookFromUser);
 
 // Books routes
 app.get('/books', getBooks);
+app.post('/books', createBook);
+app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 // Authors routes
 app.get('/authors', getAuthors);
