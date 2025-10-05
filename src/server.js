@@ -1,13 +1,20 @@
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';    
 import { getUsers, createUser, updateUser, deleteUser, addBookToUser, removeBookFromUser } from './routes/users.js';
 import { getBooks, createBook, updateBook, deleteBook } from './routes/books.js';
 import { getAuthors, createAuthor, updateAuthor, deleteAuthor } from './routes/authors.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
 // Middleware
 app.use(express.json());
+app.use(cors());
+app.use("/images", express.static(path.join(__dirname, "../images")));
 
 // Routes
 app.get('/', (req, res) => {

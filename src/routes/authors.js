@@ -56,11 +56,15 @@ export async function deleteAuthor(req, res) {
         });
         if (!authorExists) return res.status(404).json({ error: 'Author not found, confirm Id is correct and try again' }); 
 
+        // Prevents books from being authorless 
+        if (authorExists.books.length > 0) {
+            return res.status(400).json({ error: 'Cannot delete author with existing books. Please delete the books first.' });   
+        }
+
         await prisma.author.delete({
             where: { id: parseInt(id) }
         });
     
-
         res.status(200).json({ message: 'Author deleted successfully' });        
     } catch (error) {
         console.error(error);
