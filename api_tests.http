@@ -2,6 +2,10 @@
 GET http://localhost:3000/books
 Accept: application/json
 
+### Get random book
+GET http://localhost:3000/books/random
+Accept: application/json
+
 ### Create book
 POST http://localhost:3000/books
 Content-Type: application/json

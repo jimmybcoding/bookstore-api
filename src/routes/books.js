@@ -5,6 +5,8 @@ export async function getBooks(req, res) {
         const books = await prisma.book.findMany({
             include: { author: true }
         });
+        if (books.length === 0) return res.status(404).json({ error: 'No books found' });
+
         res.status(200).json(books);
         console.log(books);
     } catch (error) {
@@ -12,6 +14,21 @@ export async function getBooks(req, res) {
         res.status(500).json({ error: 'Failed to fetch books' });
     };
 };
+
+export async function getRandomBook(req, res) {
+  try {
+    const books = await prisma.book.findMany({
+      include: { author: true }
+    });
+    if (books.length === 0) return res.status(404).json({ error: 'No books found' });
+
+    const randomBook = books[Math.floor(Math.random() * books.length)];
+    res.status(200).json(randomBook);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error, failed to fetch book' });
+  }
+}
 
 export async function createBook(req, res) {
     try {

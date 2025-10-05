@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';    
 import { getUsers, createUser, updateUser, deleteUser, addBookToUser, removeBookFromUser } from './routes/users.js';
-import { getBooks, createBook, updateBook, deleteBook } from './routes/books.js';
+import { getBooks, getRandomBook, createBook, updateBook, deleteBook } from './routes/books.js';
 import { getAuthors, createAuthor, updateAuthor, deleteAuthor } from './routes/authors.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,6 +31,7 @@ app.delete('/users/:userId/books/:bookId', removeBookFromUser);
 
 // Books routes
 app.get('/books', getBooks);
+app.get('/books/random', getRandomBook);
 app.post('/books', createBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
