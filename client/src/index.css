@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.bg-hero {
+background: linear-gradient(100deg, #6d14a4, #481665, #7FFFD4);
+}
+
+.text-mint {
+  color: #7FFFD4;
+} 
