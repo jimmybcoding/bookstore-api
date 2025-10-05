@@ -7,26 +7,29 @@ POST http://localhost:3000/books
 Content-Type: application/json
 
 {
-  "title": "Dune",
-  "published": "2005-08-02",
-  "isbn": "9780441013593",
-  "authorId": 3
+  "title": "Children of Dune",
+  "published": "2019-06-04",
+  "isbn": "9780593098240",
+  "price": 15,
+  "pic": "images/duneChildren.jpg",
+  "authorId": 2
 }
 
 ### Update existing book (replace id with real)
-PUT http://localhost:3000/books/4
+PUT http://localhost:3000/books/1
 Content-Type: application/json
 
 {
-  "title": "Dune (Dune chronicles book #1)",
-  "published": "2005-08-02",
-  "isbn": "9780441013593",
-  "authorId": 3
+  "title": "Children of Dune",
+  "published": "2019-06-04",
+  "isbn": "9780593098240",
+  "price": 18,
+  "pic": "images/duneChildren.jpg",
+  "authorId": 2
 }
 
 ### Delete book (replace id with a real)
-DELETE http://localhost:3000/books/4
-
+DELETE http://localhost:3000/books/11
 
 
 ### Get all authors
@@ -38,8 +41,8 @@ POST http://localhost:3000/authors
 Content-Type: application/json
 
 {
-  "name": "Frank Herbert",
-  "bio": "Author of Dune, maker of The Maker, Shai Hulud."
+  "name": "Ted Chiang",
+  "bio": "Author of Arrival."
 }
 
 ### Update existing author (replace id with real)
@@ -48,7 +51,7 @@ Content-Type: application/json
 
 {
   "name": "Frank Herbert",
-  "bio": "The spice must flow."
+  "bio": "Author of Dune. The spice must flow."
 }
 
 ### Delete author (replace id with a real)
@@ -92,3 +95,4 @@ Content-Type: application/json
 
 ### Delete Book from User (replace userId and bookId with real)
 DELETE http://localhost:3000/users/1/books/5  
+

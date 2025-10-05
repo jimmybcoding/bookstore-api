@@ -15,8 +15,8 @@ export async function getBooks(req, res) {
 
 export async function createBook(req, res) {
     try {
-        const { title, published, isbn, authorId } = req.body;
-        if (!title || !published || !isbn || !authorId) return res.status(400).json({ error: 'Title, published date, isbn, and authorId are required'});
+        const { title, published, isbn, price, pic, authorId } = req.body;
+        if (!title || !published || !isbn || !price || !pic || !authorId) return res.status(400).json({ error: 'Title, published date, isbn, and authorId are required'});
 
         const authorExists = await prisma.author.findUnique({
             where: { id: authorId }
@@ -27,7 +27,9 @@ export async function createBook(req, res) {
             data: { 
                 title, 
                 published: new Date(published), 
-                isbn, 
+                isbn,
+                price,
+                pic,
                 author: { connect: { id: authorId } } }
         });
         
@@ -41,8 +43,8 @@ export async function createBook(req, res) {
 export async function updateBook(req, res) {
     try {
         const { id } = req.params;
-        const { title, published, isbn, authorId } = req.body;
-        if (!title || !published || !isbn || !authorId) return res.status(400).json({ error: 'Title, published date, isbn, and authorId are required'});
+        const { title, published, isbn, price, pic, authorId } = req.body;
+        if (!title || !published || !isbn || !price || !pic || !authorId) return res.status(400).json({ error: 'Title, published date, isbn, and authorId are required'});
         
         const authorExists = await prisma.author.findUnique({
             where: { id: authorId }
@@ -54,7 +56,9 @@ export async function updateBook(req, res) {
             data: { 
                 title, 
                 published: new Date(published), 
-                isbn, 
+                isbn,
+                price,
+                pic, 
                 author: { connect: { id: authorId } } }
         });
         

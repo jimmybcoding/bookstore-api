@@ -28,6 +28,8 @@ model Book {
   title     String
   published DateTime  
   isbn  String  @unique
+  price Decimal
+  pic String
   author    Author   @relation(fields: [authorId], references: [id])
   authorId  Int
   users User[] 
