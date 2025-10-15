@@ -52,7 +52,8 @@ export async function deleteAuthor(req, res) {
         const { id } = req.params;
 
         const authorExists = await prisma.author.findUnique({
-            where: { id: parseInt(id) }
+            where: { id: parseInt(id) },
+            include: { books: true }
         });
         if (!authorExists) return res.status(404).json({ error: 'Author not found, confirm Id is correct and try again' }); 
 
