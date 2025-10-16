@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
 import BookCard from "./bookCard";
+import { API_URL } from "../../api";
 
 function FeaturedBook() {
   const [book, setBook] = useState(null);
@@ -11,7 +12,7 @@ function FeaturedBook() {
   useEffect(() => {
     const fetchFeaturedBook = async () => {
       try {
-        const response = await fetch("http://localhost:3000/books/random");
+        const response = await fetch(`${API_URL}/books/random`);
         if (!response.ok) throw new Error("Network response was not ok");
 
         const result = await response.json();
@@ -25,7 +26,7 @@ function FeaturedBook() {
     fetchFeaturedBook();
   }, []);
 
-  const picSource = book ? `http://localhost:3000/${book.pic}` : null;
+  const picSource = book ? `${API_URL}/${book.pic}` : null;
 
   // Skeleton loader if book is not loaded yet
   if (!book && !fetchError) {

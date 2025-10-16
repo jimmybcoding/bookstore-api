@@ -1,5 +1,7 @@
+import { API_URL } from '../../api';
+
 function BookCard({ title, author, isbn, price, pic }) {
-    const picSource = `http://localhost:3000/${pic}`
+    const picSource = `${API_URL}/${pic}`
 
   return (
     <div className=" text-white p-4 m-4 flex flex-col items-center">
