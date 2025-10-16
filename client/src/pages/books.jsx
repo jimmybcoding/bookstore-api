@@ -4,6 +4,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import BookCard from "../ui components/bookCard";
 import Navbar from "../ui components/navbar";
 import Footer from "../ui components/footer";
+import { API_URL } from "../../api";
 
 function Books() {
   const [data, setdata] = useState(null);
@@ -13,7 +14,7 @@ function Books() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/books");
+        const response = await fetch(`${API_URL}/books`);
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         setdata(result);
