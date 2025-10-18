@@ -1,5 +1,30 @@
 import prisma from "../db.js";
 
+/**
+ * @openapi
+ * /authors:
+ *   get:
+ *     summary: Get a list of all authors
+ *     description: Get a list of authors with their books
+ *     tags:
+ *       - Authors
+ *     responses:
+ *       200:
+ *         description: A list of authors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Author'
+ *       500:
+ *         description: Server error, failed to fetch authors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+
 export async function getAuthors(req, res) {
     try {
         const authors = await prisma.author.findMany({
@@ -13,13 +38,49 @@ export async function getAuthors(req, res) {
     };
 };
 
+/**
+ * @openapi
+ * /authors:
+ *   post:
+ *     summary: Create a new author
+ *     description: Create a new author with name and bio
+ *     tags:
+ *       - Authors
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Author'
+ *     responses:
+ *       201:
+ *         description: Author created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Author'
+ *       400:
+ *         description: Name and bio are required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error, failed to create author
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+
 export async function createAuthor(req, res) {
     try {
         const { name, bio } = req.body;
         if (!name || !bio) return res.status(400).json({ error: 'Name and bio are required'});
         
         const newAuthor = await prisma.author.create({
-            data: { name, bio }
+            data: { name, bio },
+            include: { books: true }
         });
 
         res.status(201).json(newAuthor);        
@@ -29,6 +90,48 @@ export async function createAuthor(req, res) {
     };   
 };
 
+/**
+ * @openapi
+ * /authors/{id}:
+ *   put:
+ *     summary: Update an existing author
+ *     description: Update an author's name and bio by ID
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The author ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Author'
+ *     responses:
+ *       200:
+ *         description: Author updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Author'
+ *       400:
+ *         description: Name and bio are required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error, failed to update author
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+
 export async function updateAuthor(req, res) {
     try {
         const { id } = req.params;
@@ -37,7 +140,8 @@ export async function updateAuthor(req, res) {
 
         const updatedAuthor = await prisma.author.update({
             where: { id: parseInt(id) },
-            data: { name, bio }
+            data: { name, bio },
+            include: { books: true }
         });
 
         res.status(200).json(updatedAuthor);        
@@ -46,6 +150,52 @@ export async function updateAuthor(req, res) {
         res.status(500).json({ error: 'Server error, failed to update author' });
     };
 }; 
+
+/**
+ * @openapi
+ * /authors/{id}:
+ *   delete:
+ *     summary: Delete an existing author
+ *     description: Delete an author by ID
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The author ID
+ *     responses:
+ *       200:
+ *         description: Author deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Author deleted successfully
+ *       400:
+ *         description: Cannot delete author with existing books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Author not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error, failed to delete author
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 
 export async function deleteAuthor(req, res) {
     try {
