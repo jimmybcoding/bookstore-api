@@ -47,7 +47,8 @@ export async function createBook(req, res) {
                 isbn,
                 price,
                 pic,
-                author: { connect: { id: authorId } } }
+                author: { connect: { id: authorId } } },
+            include: { author: true }
         });
         
         res.status(201).json(newBook);
@@ -76,7 +77,8 @@ export async function updateBook(req, res) {
                 isbn,
                 price,
                 pic, 
-                author: { connect: { id: authorId } } }
+                author: { connect: { id: authorId } } },
+            include: { author: true }
         });
         
         res.status(200).json(updatedBook);

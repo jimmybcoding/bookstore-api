@@ -19,7 +19,8 @@ export async function createUser(req, res) {
         if (!name || !email) return res.status(400).json({ error: 'Name and email are required'});
 
         const newUser = await prisma.user.create({
-            data: { name, email }
+            data: { name, email },
+            include: { books: true }
         }); 
         res.status(201).json(newUser);
     } catch (error) {
@@ -36,7 +37,8 @@ export async function updateUser(req, res) {
 
         const updatedUser = await prisma.user.update({
             where: { id: parseInt(id) },
-            data: { name, email }
+            data: { name, email },
+            include: { books: true }
         });
         res.status(200).json(updatedUser);
     } catch (error) {
