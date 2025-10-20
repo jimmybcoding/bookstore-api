@@ -29,6 +29,18 @@ const options = {
                     author:{ $ref: '#/components/schemas/Author' }
                 }
             },
+            BookInput: {
+                type: 'object',
+                properties: {
+                    title: { type: 'string', example: 'Dune' },
+                    published: { type: 'string', format: 'date', example: '1965-08-01' },
+                    isbn: { type: 'string', example: '9780441013593' },
+                    price: { type: 'number', format: 'float', example: 9.99 },
+                    pic: { type: 'string', example: 'images/dune.jpg' },
+                    authorId: { type: 'integer', example: 1 }
+                },
+                required: ['title', 'published', 'isbn', 'price', 'authorId']
+            },
             Author: {
                 type: 'object',
                 properties: {
@@ -52,6 +64,14 @@ const options = {
                         items: { $ref: '#/components/schemas/Book' }
                     }
                 }
+            },
+            UserInput: {
+                type: 'object',
+                properties: {
+                    name: { type: 'string', example: 'Jimmy' },
+                    email: { type: 'string', example: 'jimmy@gmail.com' }
+                },
+            required: ['name', 'email']
             },
             Error: {
                 type: 'object',
