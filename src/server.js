@@ -19,17 +19,13 @@ app.use(cors());
 app.use("/images", express.static(path.join(__dirname, "../images")));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Welcome to the Bookstore API!');
-});
 
 // Users routes
 app.get('/users', getUsers);
 app.post('/users', createUser);
 app.put('/users/:id', updateUser);
 app.delete('/users/:id', deleteUser);
-app.post('/users/books', addBookToUser);
+app.post('/users/:userId/books/:bookId', addBookToUser);
 app.delete('/users/:userId/books/:bookId', removeBookFromUser);
 
 // Books routes
