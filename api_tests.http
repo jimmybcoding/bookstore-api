@@ -1,3 +1,12 @@
+### Login as the admin to get a token to test protected routes, replace password with the real admin pw
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin@spiceshelf.com",
+  "password": "ENV_ADMIN_PASSWORD"
+}
+
 ### Get all books
 GET http://localhost:3000/books
 Accept: application/json
@@ -9,6 +18,7 @@ Accept: application/json
 ### Create book
 POST http://localhost:3000/books
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
   "title": "Children of Dune",
@@ -22,6 +32,7 @@ Content-Type: application/json
 ### Update existing book (replace id with real)
 PUT http://localhost:3000/books/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
   "title": "Children of Dune",
@@ -34,15 +45,17 @@ Content-Type: application/json
 
 ### Delete book (replace id with a real)
 DELETE http://localhost:3000/books/11
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 ### Get all authors
 GET http://localhost:3000/authors
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 ### Create author
 POST http://localhost:3000/authors
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
   "name": "Ted Chiang",
@@ -50,22 +63,25 @@ Content-Type: application/json
 }
 
 ### Update existing author (replace id with real)
-PUT http://localhost:3000/authors/2
+PUT http://localhost:3000/authors/6
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
-  "name": "Frank Herbert",
+  "name": "Ted Chiang",
   "bio": "Author of Dune. The spice must flow."
 }
 
 ### Delete author (replace id with a real)
-DELETE http://localhost:3000/authors/2
+DELETE http://localhost:3000/authors/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 
 
 ### Get all users
 GET http://localhost:3000/users 
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 ### Create user
 POST http://localhost:3000/users    
@@ -73,12 +89,14 @@ Content-Type: application/json
 
 {
   "name": "Shai Gilgeous-Alexander",
-  "email": "SGA@gmail.com"
+  "email": "SGA@gmail.com",
+  "password": "password"
 }
 
 ### Update existing user (replace id with real)
-PUT http://localhost:3000/users/2  
+PUT http://localhost:3000/users/7
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
   "name": "Shai Gilgeous-Alexander",
@@ -86,11 +104,13 @@ Content-Type: application/json
 }
 
 ### Delete user (replace id with a real)
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 ### Add Book to User
-POST http://localhost:3000/users/books
+POST http://localhost:3000/users/1/books/5
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
 {
   "userId": 1,
@@ -99,4 +119,5 @@ Content-Type: application/json
 
 ### Delete Book from User (replace userId and bookId with real)
 DELETE http://localhost:3000/users/1/books/5  
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBzcGljZXNoZWxmLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2MjAyNzIyNSwiZXhwIjoxNzYyMDMwODI1fQ.VbITToTq5wcVWt4ss3bs3TzcQmkhVLtzLVZmD8bVHCk
 
