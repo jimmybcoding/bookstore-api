@@ -40,9 +40,13 @@ function AdminBookTab() {
     };
 
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/books/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Failed to update book');
@@ -55,8 +59,12 @@ function AdminBookTab() {
   const handleDelete = async (id) => {
     if (!confirm('Delete this book?')) return;
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/books/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       if (!res.ok) throw new Error('Failed to delete book');
       setBooks((prev) => prev.filter((b) => b.id !== id));

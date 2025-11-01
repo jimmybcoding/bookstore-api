@@ -19,6 +19,7 @@ function Navbar() {
                 <a href="/" className="hover:text-gray-400">Home</a>
                 <a href="/books" className="hover:text-gray-400">Books</a>
                 <a href="/admin" className="hover:text-gray-400">Admin</a>
+                <a href="/login" className="hover:text-gray-400">Login</a>
             </div>
 
             {/* Mobile menu button */}
@@ -41,6 +42,7 @@ function Navbar() {
             <a href="/" className="hover:text-gray-400">Home</a>
             <a href="/books" className="hover:text-gray-400">Books</a>
             <a href="/admin" className="hover:text-gray-400">Admin</a>
+            <a href="/login" className="hover:text-gray-400">Login</a>
         </div>
         </div>
     </>

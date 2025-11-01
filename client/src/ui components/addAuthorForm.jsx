@@ -10,9 +10,13 @@ function AddAuthorForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/authors`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                 },
                 body: JSON.stringify(formData)
             })
             if (!response.ok) throw new Error('Failed to create author');

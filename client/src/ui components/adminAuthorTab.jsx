@@ -11,7 +11,11 @@ function AdminAuthorTab() {
   const handleGetAuthors = async () => {
     setError('');
     try {
-      const res = await fetch(`${API_URL}/authors`);
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/authors`, {
+        headers: {"Authorization": `Bearer ${token}`}
+    });
+      
       if (!res.ok) throw new Error('Failed to fetch authors');
       const data = await res.json();
       setAuthors(data);
@@ -33,9 +37,13 @@ function AdminAuthorTab() {
   const handleSave = async (id) => {
     const author = authors.find((a) => a.id === id);
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/authors/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify(author),
       });
       if (!res.ok) throw new Error('Failed to update author');
@@ -48,8 +56,12 @@ function AdminAuthorTab() {
   const handleDelete = async (id) => {
     if (!confirm('Delete this author?')) return;
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/authors/${id}`, {
         method: 'DELETE',
+        headers: {
+        'Authorization': `Bearer ${token}`
+        }
       });
       if (!res.ok) throw new Error('Failed to delete author');
       setAuthors((prev) => prev.filter((a) => a.id !== id));

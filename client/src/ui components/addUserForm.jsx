@@ -5,6 +5,7 @@ function AddUserForm() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        password: ''
     })
     
     const handleSubmit = async (e) => {
@@ -16,7 +17,7 @@ function AddUserForm() {
                 body: JSON.stringify(formData)
             })
             if (!response.ok) throw new Error('Failed to create user');
-            setFormData({ name: '', email: '' });
+            setFormData({ name: '', email: '', password: '' });
             alert('User created successfully');
         } catch (error) {
             console.error("Error creating user:", error);
@@ -47,6 +48,15 @@ function AddUserForm() {
               type="email" 
               name="email" 
               value={formData.email} 
+              required 
+              onChange={handleChange}
+              className="text-mint border-mint border-2 font-bold px-2 py-1 rounded"
+            />
+        <label className="text-mint">Password:</label>
+            <input 
+              type="password" 
+              name="password" 
+              value={formData.password} 
               required 
               onChange={handleChange}
               className="text-mint border-mint border-2 font-bold px-2 py-1 rounded"

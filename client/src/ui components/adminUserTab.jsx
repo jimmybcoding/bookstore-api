@@ -11,7 +11,12 @@ function AdminUserTab() {
   const handleGetUsers = async () => {
     setError('');
     try {
-      const res = await fetch(`${API_URL}/users`);
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/users`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (!res.ok) throw new Error('Failed to fetch users');
       const data = await res.json();
       setUsers(data);
@@ -33,9 +38,13 @@ function AdminUserTab() {
   const handleSave = async (id) => {
     const user = users.find((u) => u.id === id);
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/users/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      },
         body: JSON.stringify(user),
       });
       if (!res.ok) throw new Error('Failed to update user');
@@ -48,8 +57,12 @@ function AdminUserTab() {
   const handleDelete = async (id) => {
     if (!confirm('Delete this user?')) return;
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/users/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       if (!res.ok) throw new Error('Failed to delete user');
       setUsers((prev) => prev.filter((u) => u.id !== id));

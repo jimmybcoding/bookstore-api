@@ -31,6 +31,9 @@ function Footer() {
           <a href="/books" className="hover:text-gray-400">
             Books
           </a>
+          <a href="/login" className="hover:text-gray-400" >
+            Login
+          </a>
           <a href="/admin" className="hover:text-gray-400">
             Admin
           </a>
