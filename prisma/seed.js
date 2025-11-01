@@ -1,7 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { PrismaClient } from '../generated/prisma/index.js';
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+import bcrypt from 'bcryptjs';
 
 async function main() {
+  const hashedAdminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
+  const hashedJimmyPassword = await bcrypt.hash('jimmy', 10);
+
     const jkRowling = await prisma.author.upsert({
     where: { name: 'J.K. Rowling' },
     update: {},
@@ -143,15 +149,29 @@ async function main() {
     create: {
         email: 'jimmy@gmail.com',
         name: 'James B',
+        password: hashedJimmyPassword,
+        isAdmin: false,
         books: {
             connect: [
                 {isbn: '9781338878929'}, 
                 {isbn: '9781338878936'}
             ]
         }
-    }
+    },
   })
-  console.log({ harryPotterOne, jkRowling, jimmy })
+
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@spiceshelf.com'},
+    update: {},
+    create: {
+      email: 'admin@spiceshelf.com',
+      name: 'SpiceShelf Admin',
+      password: hashedAdminPassword,
+      isAdmin: true,
+    },
+  })
+
+  console.log({ harryPotterOne, jkRowling, admin })
 }
 main()
   .then(async () => {
