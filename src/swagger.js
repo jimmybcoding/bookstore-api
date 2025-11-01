@@ -1,7 +1,7 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
 /*How to Test Protected Routes
-1. Use POST /login with email: admin@spiceshelf.com, password: get it from the .env 
+1. Use POST /login with email: admin@spiceshelf.com, password: get it from the .env (it's included by default in the browser) 
 2. Copy the token from the response
 3. Click the Authorize button at the top
 4. Paste token
