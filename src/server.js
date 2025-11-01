@@ -5,8 +5,11 @@ import { fileURLToPath } from 'url';
 import { getUsers, createUser, updateUser, deleteUser, addBookToUser, removeBookFromUser } from './routes/users.js';
 import { getBooks, getRandomBook, createBook, updateBook, deleteBook } from './routes/books.js';
 import { getAuthors, createAuthor, updateAuthor, deleteAuthor } from './routes/authors.js';
+import { login } from './routes/login.js';
 import swaggerUi from 'swagger-ui-express'; 
-import { swaggerSpec } from './swagger.js';  
+import { swaggerSpec } from './swagger.js';
+import { verifyToken } from './authMiddleware.js';  
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,25 +24,28 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // Users routes
-app.get('/users', getUsers);
+app.get('/users', verifyToken, getUsers);
 app.post('/users', createUser);
-app.put('/users/:id', updateUser);
-app.delete('/users/:id', deleteUser);
-app.post('/users/:userId/books/:bookId', addBookToUser);
-app.delete('/users/:userId/books/:bookId', removeBookFromUser);
+app.put('/users/:id', verifyToken, updateUser);
+app.delete('/users/:id', verifyToken, deleteUser);
+app.post('/users/:userId/books/:bookId', verifyToken, addBookToUser);
+app.delete('/users/:userId/books/:bookId', verifyToken, removeBookFromUser);
 
 // Books routes
 app.get('/books', getBooks);
 app.get('/books/random', getRandomBook);
-app.post('/books', createBook);
-app.put('/books/:id', updateBook);
-app.delete('/books/:id', deleteBook);
+app.post('/books', verifyToken, createBook);
+app.put('/books/:id', verifyToken, updateBook);
+app.delete('/books/:id', verifyToken, deleteBook);
 
 // Authors routes
-app.get('/authors', getAuthors);
-app.post('/authors', createAuthor);
-app.put('/authors/:id', updateAuthor);
-app.delete('/authors/:id', deleteAuthor);
+app.get('/authors', verifyToken, getAuthors);
+app.post('/authors', verifyToken, createAuthor);
+app.put('/authors/:id', verifyToken, updateAuthor);
+app.delete('/authors/:id', verifyToken, deleteAuthor);
+
+// Login route
+app.post('/login', login);
 
 // Start server
 app.listen(PORT, () => {
