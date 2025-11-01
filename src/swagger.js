@@ -33,13 +33,13 @@ const options = {
             Book: {
                 type: 'object',
                 properties: {
-                    id: { type: 'integer', example: 1 },
+                    id: { type: 'integer', example: 8 },
                     title: { type: 'string', example: 'Dune' },
                     published: { type: 'string', format: 'date', example: '1965-08-01' },
                     isbn: { type: 'string', example: '9780441013593' },
-                    price: { type: 'number', format: 'float', example: 9.99 },
+                    price: { type: 'number', format: 'float', example: 15 },
                     pic: { type: 'string', example: 'images/dune.jpg' },
-                    authorId: { type: 'integer', example: 1 },
+                    authorId: { type: 'integer', example: 2 },
                     author:{ $ref: '#/components/schemas/Author' }
                 }
             },
@@ -49,9 +49,9 @@ const options = {
                     title: { type: 'string', example: 'Dune' },
                     published: { type: 'string', format: 'date', example: '1965-08-01' },
                     isbn: { type: 'string', example: '9780441013593' },
-                    price: { type: 'number', format: 'float', example: 9.99 },
+                    price: { type: 'number', format: 'float', example: 15 },
                     pic: { type: 'string', example: 'images/dune.jpg' },
-                    authorId: { type: 'integer', example: 1 }
+                    authorId: { type: 'integer', example: 2 }
                 },
                 required: ['title', 'published', 'isbn', 'price', 'authorId']
             },
