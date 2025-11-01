@@ -16,8 +16,10 @@ services:
     build: .
     ports:
       - "3000:3000"
-    env_file:
-      - .env
+    environment:
+      DATABASE_URL: "postgresql://bookapi:bookapi@db:5432/bookapi"
+      ADMIN_PASSWORD: "adminPassword1"
+      JWT_SECRET: "secretJWT"
     depends_on:
       - db
 
