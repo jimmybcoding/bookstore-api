@@ -1,6 +1,7 @@
 node_modules/
-.env
 .git/
 dist/
-build/
+Dockerfile
+docker-compose.yml
+prisma/generated
 .DS_Store
