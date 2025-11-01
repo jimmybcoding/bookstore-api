@@ -97,6 +97,8 @@ export async function getRandomBook(req, res) {
  *     description: Create a new book with title, published date, isbn, price, pic, and authorId
  *     tags:
  *       - Books
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -112,6 +114,12 @@ export async function getRandomBook(req, res) {
  *               $ref: '#/components/schemas/Book'
  *       400:
  *         description: Title, published date, isbn, price, pic, and authorId are required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Token error
  *         content:
  *           application/json:
  *             schema:
@@ -166,6 +174,8 @@ export async function createBook(req, res) {
  *     description: Update a book's information by its ID
  *     tags:
  *       - Books
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -185,6 +195,12 @@ export async function createBook(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       400:
  *         description: Title, published date, isbn, price, pic, and authorId are required
  *         content:
@@ -243,6 +259,8 @@ export async function updateBook(req, res) {
  *     description: Delete a book by ID
  *     tags:
  *       - Books
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -261,6 +279,12 @@ export async function updateBook(req, res) {
  *                 message:
  *                   type: string
  *                   example: Book deleted successfully
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Book not found
  *         content:

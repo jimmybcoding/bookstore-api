@@ -1,4 +1,5 @@
 import prisma from '../db.js';
+import bcrypt from 'bcryptjs';
 
 /**
  * @openapi
@@ -8,6 +9,8 @@ import prisma from '../db.js';
  *     description: Get a list of users with their books
  *     tags:
  *       - Users
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of users
@@ -17,6 +20,12 @@ import prisma from '../db.js';
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Token error
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: No users found
  *         content:
@@ -36,6 +45,7 @@ export async function getUsers(req, res) {
         const users = await prisma.user.findMany({
             include: { books: true }
         });
+        
         if (users.length === 0) return res.status(404).json({ error: 'No users found' });
         res.json(users);
         console.log(users);
@@ -50,7 +60,7 @@ export async function getUsers(req, res) {
  * /users:
  *   post:
  *     summary: Create a new user
- *     description: Create a new user with name and email
+ *     description: Create a new user with name, email and password
  *     tags:
  *       - Users
  *     requestBody:
@@ -72,6 +82,12 @@ export async function getUsers(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: Duplicate email used to sign up 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref:  '#/components/schemas/Error'
  *       500:
  *         description: Server error, failed to create user
  *         content:
@@ -82,11 +98,18 @@ export async function getUsers(req, res) {
 
 export async function createUser(req, res) {
     try {
-        const { name, email } = req.body;
-        if (!name || !email) return res.status(400).json({ error: 'Name and email are required'});
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) return res.status(400).json({ error: 'Name and email and password are required'});
+
+        const emailExists = await prisma.user.findUnique({
+            where: { email: email }
+        });
+        if (emailExists) return res.status(409).json({ error: 'User found with that email, please create account using a different email.' });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await prisma.user.create({
-            data: { name, email },
+            data: { name, email, password: hashedPassword },
             include: { books: true }
         }); 
         res.status(201).json(newUser);
@@ -104,6 +127,8 @@ export async function createUser(req, res) {
  *     description: Update a user's name and email by ID
  *     tags:
  *       - Users
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -124,6 +149,13 @@ export async function createUser(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *  
  *       400:
  *         description: Name and email are required
  *         content:
@@ -164,6 +196,8 @@ export async function updateUser(req, res) {
  *     description: Delete a user by ID
  *     tags:
  *       - Users
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -182,6 +216,12 @@ export async function updateUser(req, res) {
  *                 message:
  *                   type: string
  *                   example: User deleted successfully
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Server error, failed to delete user
  *         content:
@@ -211,6 +251,8 @@ export async function deleteUser(req, res) {
  *     description: Add a book to a user's collection
  *     tags:
  *       - Users
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId
@@ -231,9 +273,16 @@ export async function deleteUser(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *       
  *       400:
  *         description: userId and bookId are required
  *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Token error
+ *         content: 
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
@@ -288,6 +337,8 @@ export async function addBookToUser(req, res) {
  *     description: Remove a book from a user's collection
  *     tags:
  *       - Users
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId
@@ -311,6 +362,12 @@ export async function addBookToUser(req, res) {
  *       400:
  *         description: userId and bookId are required
  *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Token error
+ *         content: 
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'

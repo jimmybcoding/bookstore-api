@@ -8,6 +8,8 @@ import prisma from "../db.js";
  *     description: Get a list of authors with their books
  *     tags:
  *       - Authors
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of authors
@@ -17,6 +19,12 @@ import prisma from "../db.js";
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Author'
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Server error, failed to fetch authors
  *         content:
@@ -46,6 +54,8 @@ export async function getAuthors(req, res) {
  *     description: Create a new author with name and bio
  *     tags:
  *       - Authors
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -59,6 +69,12 @@ export async function getAuthors(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Author'
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       400:
  *         description: Name and bio are required
  *         content:
@@ -98,6 +114,8 @@ export async function createAuthor(req, res) {
  *     description: Update an author's name and bio by ID
  *     tags:
  *       - Authors
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -118,6 +136,12 @@ export async function createAuthor(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Author'
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       400:
  *         description: Name and bio are required
  *         content:
@@ -159,6 +183,8 @@ export async function updateAuthor(req, res) {
  *     description: Delete an author by ID
  *     tags:
  *       - Authors
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -177,6 +203,12 @@ export async function updateAuthor(req, res) {
  *                 message:
  *                   type: string
  *                   example: Author deleted successfully
+ *       401:
+ *         description: Token error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       400:
  *         description: Cannot delete author with existing books
  *         content:
