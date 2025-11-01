@@ -1,5 +1,12 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
+/*How to Test Protected Routes
+1. Use POST /login with email: admin@spiceshelf.com, password: get it from the .env 
+2. Copy the token from the response
+3. Click the Authorize button at the top
+4. Paste token
+5. Test away */
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -15,6 +22,13 @@ const options = {
       }
     ],
     components: {
+        securitySchemes: {
+            bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+            }
+        },
         schemas: {
             Book: {
                 type: 'object',
@@ -59,6 +73,7 @@ const options = {
                     id: { type: 'integer', example: 1 },
                     email: { type: 'string', example: 'jimmy@gmail.com'},
                     name: { type: 'string', example: 'Jimmy' },
+                    isAdmin: { type: 'boolean', example: false },
                     books: {
                         type: 'array',
                         items: { $ref: '#/components/schemas/Book' }
@@ -69,9 +84,33 @@ const options = {
                 type: 'object',
                 properties: {
                     name: { type: 'string', example: 'Jimmy' },
-                    email: { type: 'string', example: 'jimmy@gmail.com' }
+                    email: { type: 'string', example: 'jimmy@gmail.com' },
+                    password: { type: 'string', example: 'securePassword123' }
                 },
-            required: ['name', 'email']
+                required: ['name', 'email', 'password']
+            },
+            LoginInput: {
+                type: 'object',
+                properties: {
+                    email: { type: 'string', example: 'admin@spiceshelf.com' },
+                    password: { type: 'string', example: 'adminPassword1' }
+                },
+                required: ['email', 'password']
+            },
+            LoginResponse: {
+                type: 'object',
+                properties: {
+                    message: { type: 'string', example: 'Login Successful' },
+                    user: {
+                        type: 'object',
+                        properties: {
+                            id: { type: 'integer', example: 1 },
+                            email: { type: 'string', example: 'admin@spiceshelf.com' },
+                            isAdmin: { type: 'boolean', example: true }
+                        }
+                    },
+                    token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' }
+                }
             },
             Error: {
                 type: 'object',
