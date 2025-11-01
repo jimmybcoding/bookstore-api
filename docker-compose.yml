@@ -16,8 +16,8 @@ services:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      DATABASE_URL: postgresql://bookapi:bookapi@db:5432/bookapi
+    env_file:
+      - .env
     depends_on:
       - db
 
