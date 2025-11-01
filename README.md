@@ -8,6 +8,7 @@ It’s containerized with Docker for seamless setup and deployment.
 - Express
 - Prisma
 - PostgreSQL
+- JSON Web Tokens for authentication
 
 ### Frontend
 - React
@@ -38,6 +39,8 @@ localhost:5173
 ```
 localhost:3000/api-docs
 ```
+Use POST /login with the provided default email, password.
+Copy the token from the response and click and paste into the Authorize button at the top. Protected routes should now be testable. 
 
 ### To shut down the Docker container
 ```bash
