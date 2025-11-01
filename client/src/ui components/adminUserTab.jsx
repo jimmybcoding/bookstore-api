@@ -1,79 +1,79 @@
-import { useState } from 'react';
-import AddUserForm from './addUserForm';
-import { API_URL } from '../../api';
+import { useState } from "react";
+import AddUserForm from "./addUserForm";
+import { API_URL } from "../../api";
 
 function AdminUserTab() {
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
 
   const handleGetUsers = async () => {
-    setError('');
+    setError("");
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_URL}/users`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-      if (!res.ok) throw new Error('Failed to fetch users');
+      if (!res.ok) throw new Error("Failed to fetch users");
       const data = await res.json();
       setUsers(data);
     } catch (err) {
       setError(err.message);
-    } 
+    }
   };
 
   const handleEdit = (id) => setEditingId(id);
 
   const handleChange = (id, field, value) => {
     setUsers((prev) =>
-      prev.map((user) =>
-        user.id === id ? { ...user, [field]: value } : user
-      )
+      prev.map((user) => (user.id === id ? { ...user, [field]: value } : user)),
     );
   };
 
   const handleSave = async (id) => {
     const user = users.find((u) => u.id === id);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_URL}/users/${id}`, {
-        method: 'PUT',
-        headers: { 
-          'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      },
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(user),
       });
-      if (!res.ok) throw new Error('Failed to update user');
+      if (!res.ok) throw new Error("Failed to update user");
       setEditingId(null);
     } catch (err) {
-      console.error('Error updating user:', err);
+      console.error("Error updating user:", err);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this user?')) return;
+    if (!confirm("Delete this user?")) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_URL}/users/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-      if (!res.ok) throw new Error('Failed to delete user');
+      if (!res.ok) throw new Error("Failed to delete user");
       setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch (err) {
-      console.error('Error deleting user:', err);
+      console.error("Error deleting user:", err);
     }
   };
 
   return (
     <section className="p-4">
-      <h2 className="text-2xl font-bold text-mint mb-4">Users CRUD Operations</h2>
+      <h2 className="text-2xl font-bold text-mint mb-4">
+        Users CRUD Operations
+      </h2>
 
       <button
         onClick={handleGetUsers}
@@ -81,7 +81,7 @@ function AdminUserTab() {
       >
         GET Users
       </button>
-      
+
       <button
         onClick={() => setShowAddForm(!showAddForm)}
         className="text-mint border-mint border-2 mx-4 px-4 py-2 rounded-md hover:cursor-pointer hover:scale-105 transform transition-transform duration-300"
@@ -104,13 +104,17 @@ function AdminUserTab() {
                   <input
                     type="text"
                     value={user.name}
-                    onChange={(e) => handleChange(user.id, 'name', e.target.value)}
+                    onChange={(e) =>
+                      handleChange(user.id, "name", e.target.value)
+                    }
                     className="text-mint border-mint border-2 font-bold px-2 py-1 rounded"
                   />
                   <input
                     type="email"
                     value={user.email}
-                    onChange={(e) => handleChange(user.id, 'email', e.target.value)}
+                    onChange={(e) =>
+                      handleChange(user.id, "email", e.target.value)
+                    }
                     className=" text-mint border-mint border-2 font-bold px-2 py-1 rounded"
                   />
                   <div className="flex gap-2 mt-2">

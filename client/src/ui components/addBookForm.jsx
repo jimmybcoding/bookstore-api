@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { API_URL } from '../../api';
+import { API_URL } from "../../api";
 
 function AddBookForm() {
   const [formData, setFormData] = useState({
@@ -14,13 +14,13 @@ function AddBookForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const response = await fetch(`${API_URL}/books`, {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-         },
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(formData),
       });
       if (!response.ok) throw new Error("Failed to create book");
@@ -46,8 +46,8 @@ function AddBookForm() {
         name === "price"
           ? parseFloat(value)
           : name === "authorId"
-          ? parseInt(value)
-          : value,
+            ? parseInt(value)
+            : value,
     }));
   };
 
@@ -94,7 +94,10 @@ function AddBookForm() {
         className="text-mint border-mint border-2 font-bold px-2 py-1 rounded"
       />
 
-      <label className="text-mint">Picture URL- Need to upload pic to images folder and use this format: images/pic.jpg</label>
+      <label className="text-mint">
+        Picture URL- Need to upload pic to images folder and use this format:
+        images/pic.jpg
+      </label>
       <input
         type="text"
         name="pic"

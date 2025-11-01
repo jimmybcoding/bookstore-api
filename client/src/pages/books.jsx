@@ -66,8 +66,7 @@ function Books() {
 
           {error && <p>Error: {error}</p>}
 
-          {data &&
-            data.map((book) => <BookCard key={book.id} {...book} />)}
+          {data && data.map((book) => <BookCard key={book.id} {...book} />)}
         </div>
       </SkeletonTheme>
 

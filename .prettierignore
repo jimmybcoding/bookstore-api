@@ -1,0 +1,11 @@
+build
+coverage
+package-lock.json
+.env
+node_modules/
+.git/
+dist/
+Dockerfile
+docker-compose.yml
+prisma/generated
+.DS_Store

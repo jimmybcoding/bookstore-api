@@ -1,9 +1,12 @@
 # SpiceShelf
+
 SpiceShelf is a modern fullstack bookstore application featuring a fully documented RESTful API built with Swagger.  
-It’s containerized with Docker for seamless setup and deployment. 
+It’s containerized with Docker for seamless setup and deployment.
 
 ## Stack
+
 ### Backend
+
 - Node.js
 - Express
 - Prisma
@@ -11,44 +14,47 @@ It’s containerized with Docker for seamless setup and deployment.
 - JSON Web Tokens for authentication
 
 ### Frontend
+
 - React
 - TailwindCSS
 - Vite
 
 ## Setup Instructions
+
 ### Requirements
+
 Docker Desktop must be installed: (https://www.docker.com/products/docker-desktop/)
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/jimmybcoding/bookstore-api.git
 cd bookstore-api
 ```
 
 ### 2. Build the Docker container
+
 ```bash
 docker-compose up --build
 ```
 
 ### 3. Visit frontend website
+
 ```
 localhost:5173
 ```
 
 ### 4. View the Swagger docs
+
 ```
 localhost:3000/api-docs
 ```
+
 Use POST /login with the provided default email, password.
-Copy the token from the response and click and paste into the Authorize button at the top. Protected routes should now be testable. 
+Copy the token from the response and click and paste into the Authorize button at the top. Protected routes should now be testable.
 
 ### To shut down the Docker container
+
 ```bash
 docker-compose down
 ```
-
-
-
-
-
-    
