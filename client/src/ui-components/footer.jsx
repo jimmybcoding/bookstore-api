@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
 function Footer() {
-  const {user, logout} = useContext(AuthContext);
-  
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <footer className="bg-hero text-white">
       <svg
@@ -38,15 +38,20 @@ function Footer() {
           <a href="/books" className="hover:text-gray-400">
             Books
           </a>
-          {!user ? 
-          <a href="/login" className="hover:text-gray-400">
-            Login
-          </a> : 
-          <a onClick={logout} className="hover:text-gray-400">
-            Logout
-          </a>
-          }
-          {user?.isAdmin && <a href="/admin" className="hover:text-gray-400">Admin</a>}
+          {!user ? (
+            <a href="/login" className="hover:text-gray-400">
+              Login
+            </a>
+          ) : (
+            <a onClick={logout} className="hover:text-gray-400">
+              Logout
+            </a>
+          )}
+          {user?.isAdmin && (
+            <a href="/admin" className="hover:text-gray-400">
+              Admin
+            </a>
+          )}
         </div>
       </div>
 

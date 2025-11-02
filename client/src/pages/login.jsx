@@ -35,8 +35,12 @@ function Login() {
         <div className="w-full max-w-md space-y-8">
           {/* Login Section */}
           <div>
-            <h1 className="text-3xl font-bold text-center text-mint mb-2">Welcome Back</h1>
-            <p className="text-center text-purple-500 mb-6">Sign in to your account</p>
+            <h1 className="text-3xl font-bold text-center text-mint mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-center text-purple-500 mb-6">
+              Sign in to your account
+            </p>
             <LoginForm />
           </div>
 
@@ -52,8 +56,12 @@ function Login() {
 
           {/* Sign Up Section */}
           <div>
-            <h2 className="text-2xl font-semibold text-center text-mint mb-2">New to SpiceShelf?</h2>
-            <p className="text-center text-purple-500 mb-6">Create your account</p>
+            <h2 className="text-2xl font-semibold text-center text-mint mb-2">
+              New to SpiceShelf?
+            </h2>
+            <p className="text-center text-purple-500 mb-6">
+              Create your account
+            </p>
             <AddUserForm />
           </div>
         </div>

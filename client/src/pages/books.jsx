@@ -69,8 +69,8 @@ function Books() {
             {data && data.map((book) => <BookCard key={book.id} {...book} />)}
           </div>
         </SkeletonTheme>
-        </main>
-        <Footer />
+      </main>
+      <Footer />
     </div>
   );
 }

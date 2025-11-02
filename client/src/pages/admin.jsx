@@ -22,7 +22,7 @@ function Admin() {
         {activeTab === "Authors" && <AdminAuthorTab />}
       </main>
       <Footer />
-  </div>
+    </div>
   );
 }
 

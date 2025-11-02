@@ -24,14 +24,20 @@ function Navbar() {
             <a href="/books" className="hover:text-gray-400">
               Books
             </a>
-            {!user ? 
-            <a href="/login" className="hover:text-gray-400">
-              Login
-            </a> : 
-            <a onClick={logout} className="hover:text-gray-400">
-              Logout
-            </a>}
-            {user?.isAdmin && <a href="/admin" className="hover:text-gray-400">Admin</a>}
+            {!user ? (
+              <a href="/login" className="hover:text-gray-400">
+                Login
+              </a>
+            ) : (
+              <a onClick={logout} className="hover:text-gray-400">
+                Logout
+              </a>
+            )}
+            {user?.isAdmin && (
+              <a href="/admin" className="hover:text-gray-400">
+                Admin
+              </a>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -54,15 +60,20 @@ function Navbar() {
           <a href="/books" className="hover:text-gray-400">
             Books
           </a>
-          {!user ? 
+          {!user ? (
             <a href="/login" className="hover:text-gray-400">
               Login
-            </a> : 
+            </a>
+          ) : (
             <a onClick={logout} className="hover:text-gray-400">
               Logout
             </a>
-          }
-          {user?.isAdmin && <a href="/admin" className="hover:text-gray-400">Admin</a>}
+          )}
+          {user?.isAdmin && (
+            <a href="/admin" className="hover:text-gray-400">
+              Admin
+            </a>
+          )}
         </div>
       </div>
     </>
