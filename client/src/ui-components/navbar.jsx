@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Book } from "lucide-react";
+import { AuthContext } from "../context/authContext";
 
 function Navbar() {
+  const { user, logout } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -22,12 +24,14 @@ function Navbar() {
             <a href="/books" className="hover:text-gray-400">
               Books
             </a>
-            <a href="/admin" className="hover:text-gray-400">
-              Admin
-            </a>
+            {!user ? 
             <a href="/login" className="hover:text-gray-400">
               Login
-            </a>
+            </a> : 
+            <a onClick={logout} className="hover:text-gray-400">
+              Logout
+            </a>}
+            {user?.isAdmin && <a href="/admin" className="hover:text-gray-400">Admin</a>}
           </div>
 
           {/* Mobile menu button */}
@@ -50,12 +54,15 @@ function Navbar() {
           <a href="/books" className="hover:text-gray-400">
             Books
           </a>
-          <a href="/admin" className="hover:text-gray-400">
-            Admin
-          </a>
-          <a href="/login" className="hover:text-gray-400">
-            Login
-          </a>
+          {!user ? 
+            <a href="/login" className="hover:text-gray-400">
+              Login
+            </a> : 
+            <a onClick={logout} className="hover:text-gray-400">
+              Logout
+            </a>
+          }
+          {user?.isAdmin && <a href="/admin" className="hover:text-gray-400">Admin</a>}
         </div>
       </div>
     </>
