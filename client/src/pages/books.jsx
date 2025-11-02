@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import BookCard from "../ui components/bookCard";
-import Navbar from "../ui components/navbar";
-import Footer from "../ui components/footer";
+import BookCard from "../ui-components/bookCard";
+import Navbar from "../ui-components/navbar";
+import Footer from "../ui-components/footer";
 import { API_URL } from "../../api";
 
 function Books() {
@@ -32,46 +32,46 @@ function Books() {
   const skeletonArray = Array.from({ length: 9 });
 
   return (
-    <main className="min-h-screen text-white bg-black">
+    <div className="min-h-screen text-white bg-black flex flex-col">
       <Navbar />
+      <main className="flex-1">
+        <h1 className="text-4xl font-extrabold text-center text-mint mb-8 pt-8">
+          Our Collection
+        </h1>
 
-      <h1 className="text-4xl font-extrabold text-center text-mint mb-8">
-        Our Collection
-      </h1>
+        <SkeletonTheme baseColor="#6d14a4" highlightColor="#7FFFD4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            {loading &&
+              skeletonArray.map((_, index) => (
+                <div
+                  key={index}
+                  className="text-white p-4 flex flex-col items-center rounded-lg bg-neutral-900"
+                >
+                  {/* Image placeholder*/}
+                  <Skeleton
+                    height={240}
+                    width={160}
+                    className="rounded-t-lg mb-3 shadow-sm"
+                  />
 
-      <SkeletonTheme baseColor="#6d14a4" highlightColor="#7FFFD4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {loading &&
-            skeletonArray.map((_, index) => (
-              <div
-                key={index}
-                className="text-white p-4 flex flex-col items-center rounded-lg bg-neutral-900"
-              >
-                {/* Image placeholder*/}
-                <Skeleton
-                  height={240}
-                  width={160}
-                  className="rounded-t-lg mb-3 shadow-sm"
-                />
-
-                {/* Text placeholders */}
-                <div className="p-2 text-center w-full max-w-[180px]">
-                  <Skeleton width={100} height={16} className="mb-2" />
-                  <Skeleton width={140} height={20} className="mb-2" />
-                  <Skeleton width={120} height={16} className="mb-2" />
-                  <Skeleton width={60} height={20} />
+                  {/* Text placeholders */}
+                  <div className="p-2 text-center w-full max-w-[180px]">
+                    <Skeleton width={100} height={16} className="mb-2" />
+                    <Skeleton width={140} height={20} className="mb-2" />
+                    <Skeleton width={120} height={16} className="mb-2" />
+                    <Skeleton width={60} height={20} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-          {error && <p>Error: {error}</p>}
+            {error && <p>Error: {error}</p>}
 
-          {data && data.map((book) => <BookCard key={book.id} {...book} />)}
-        </div>
-      </SkeletonTheme>
-
-      <Footer />
-    </main>
+            {data && data.map((book) => <BookCard key={book.id} {...book} />)}
+          </div>
+        </SkeletonTheme>
+        </main>
+        <Footer />
+    </div>
   );
 }
 
